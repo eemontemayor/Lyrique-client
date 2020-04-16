@@ -1,6 +1,7 @@
 import React from 'react';
 import {Sidebar} from './components/Sidebar/Sidebar'
 import UserContext from './context/user-context';
+import WordService from './services/word-service'
 class App extends React.Component {
 
 handleChange =(e)=>{
@@ -17,6 +18,22 @@ handleChange =(e)=>{
 
 
 }
+
+
+handleWordSubmit = (e) =>{
+e.preventDefault()
+
+let word = this.state.word
+
+WordService.getRhymes(word)
+.then(res=>{
+  console.log(res)
+})
+
+
+}
+
+
 
 
   render(){
@@ -37,7 +54,7 @@ handleChange =(e)=>{
 
 
 
-    <div className="word-form">
+    <form className="word-form" onSubmit ={this.handleWordSubmit}>
   
   <div className="field">
     <label>
@@ -48,7 +65,13 @@ handleChange =(e)=>{
     
         onChange={this.handleChange} />
     </label>
+    <button type ='submit'>Search</button>
   </div>
+
+
+
+
+{/* 
   <div className="field">
     <label>
       E-mail
@@ -64,8 +87,8 @@ handleChange =(e)=>{
         type="text"
   
         onChange={this.handleChange} />    </label>
-  </div>
-</div>
+  </div> */}
+</form>
 
 
 

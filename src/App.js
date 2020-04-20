@@ -1,7 +1,9 @@
 import React from 'react';
 import {Sidebar} from './components/Sidebar/Sidebar'
-import UserContext from './context/user-context';
+// import UserContext from './context/user-context';
 import WordService from './services/word-service'
+import {WordForm} from './components/WordForm/WordForm'
+import './App.css'
 class App extends React.Component {
 
 handleChange =(e)=>{
@@ -25,12 +27,26 @@ e.preventDefault()
 
 let word = this.state.word
 
-WordService.getRhymes(word)
+// WordService.getRhymes(word)
+// .then(res=>{
+//   this.setState({
+//     rhymeList:res
+
+//   })
+// })
+// WordService.getSyllables(word)
+// .then(res=>{
+//   console.log(res)
+// })
+
+// WordService.getSynonyms(word)
+// .then(res=>{
+//   console.log(res)
+// })
+WordService.getAlliterations(word)
 .then(res=>{
   console.log(res)
 })
-
-
 }
 
 
@@ -41,54 +57,23 @@ WordService.getRhymes(word)
 
     <div className = 'App'>
   {/* <UserContext.Provider value ={{word}}> */}
-
+{/* 
     <Sidebar width={300} height={"100vh"}>
           <h1>Ryhmes</h1>
           <h1>Thesaurus</h1>
           <h1>Alliterations</h1>
           <h1>Nav Item</h1>
           <h1>Nav Item</h1>
-        </Sidebar>
+        </Sidebar> */}
     
     <main className='App'>
 
 
-
-    <form className="word-form" onSubmit ={this.handleWordSubmit}>
+    <WordForm className='App__word_form'
+      handleChange = {this.handleChange}
+      handleWordSubmit={this.handleWordSubmit}
+    />
   
-  <div className="field">
-    <label>
-      word
-      <input 
-      name='word'
-        type="text"
-    
-        onChange={this.handleChange} />
-    </label>
-    <button type ='submit'>Search</button>
-  </div>
-
-
-
-
-{/* 
-  <div className="field">
-    <label>
-      E-mail
-      <input
-        type="text"
-    
-        onChange={this.handleChange} />    </label>
-  </div>
-  <div className="field">
-    <label>
-      Phone
-      <input
-        type="text"
-  
-        onChange={this.handleChange} />    </label>
-  </div> */}
-</form>
 
 
 

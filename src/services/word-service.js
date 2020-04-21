@@ -74,8 +74,8 @@ import config from '../config';
       })
     },
 
-    getSyllables(word){
-      return fetch(`${config.API_ENDPOINT}/word/syllables/${word}`,{
+    getWordData(word){
+      return fetch(`${config.API_ENDPOINT}/word/wordData/${word}`,{
         method:'GET',
         headers:{
           'content-type':'application/json',
@@ -116,5 +116,37 @@ import config from '../config';
         console.error({error})
       })
     },
+
+    getSimPhrases(phrase){
+
+    // TO-DO : ADD INPUT VALIDATION HERE
+
+      // let regEx = /\/
+
+      const UrlPhrase = phrase.split(' ')
+
+
+      return fetch(`${config.API_ENDPOINT}/word/similairPhrases/${UrlPhrase}`,{
+        method:'GET',
+        headers:{
+          'content-type':'application/json',
+          // 'authorization':`bearer ${TokenService.getAuthToken()}`,
+        },
+  
+
+
+      })
+      .then((res) => {
+        if (!res.ok)
+          return res.json().then(e => Promise.reject(e))
+        return res.json()
+      })
+      .catch(error => {
+        console.error({error})
+      })
+    },
+
+
+
 }
 export default WordService

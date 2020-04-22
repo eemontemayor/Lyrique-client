@@ -75,7 +75,7 @@ import config from '../config';
     },
 
     getWordData(word){
-      return fetch(`${config.API_ENDPOINT}/word/wordData/${word}`,{
+      return fetch(`${config.API_ENDPOINT}/word/data/${word}`,{
         method:'GET',
         headers:{
           'content-type':'application/json',

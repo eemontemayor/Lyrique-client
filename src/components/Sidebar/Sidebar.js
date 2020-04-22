@@ -17,7 +17,7 @@ export const Sidebar = ({ width, height, children}) => {
   }, []);
   return (
     <React.Fragment>
-      <div
+      <div  
         className="side-bar"
         style={{
           transform: `translatex(${xPosition}px)`,

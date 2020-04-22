@@ -1,8 +1,21 @@
 import React from 'react'
 
-export const WordForm = (props) =>{
+export class WordForm extends React.Component{
+  renderButtons = () =>{
+    const arr = ['rhymes', 'synonyms', 'alliterations','homophones']
+  
+    return arr.map(i=>{
+      return <button key ={i} type ='click' onClick = {this.props.handleChangeView}>
+        {i}
+      </button>
+  
+    })
+  
+  }
+
+  render(){
     return(
-        <form className="word-form" onSubmit ={props.handleWordSubmit}>
+        <form className="word-form" onSubmit ={this.props.handleWordSubmit}>
   
         <div className="field">
           <label>
@@ -11,8 +24,9 @@ export const WordForm = (props) =>{
             name='word'
               type="text"
           
-              onChange={props.handleChange} />
+              onChange={this.props.handleChange} />
           </label>
+          {this.renderButtons()}
           <button type ='submit'>Search</button>
         </div>
       
@@ -22,5 +36,5 @@ export const WordForm = (props) =>{
       
       </form>
     )
-    
+}
 }

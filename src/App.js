@@ -3,12 +3,14 @@ import {Sidebar} from './components/Sidebar/Sidebar'
 // import UserContext from './context/user-context';
 import WordService from './services/word-service'
 import {WordForm} from './components/WordForm/WordForm'
+import WordList from './components/WordList/WordList'
+import WordItem from './components/WordItem/WordItem'
 import './App.css'
 class App extends React.Component {
 state = {
   results:[],
   searchWord:'',
-  selectedWord:'',
+  word:'',
 
 }
 handleChange =(e)=>{
@@ -27,17 +29,18 @@ handleChange =(e)=>{
 }
 
 
-handleClickWord = () =>{
-const word = this.state.selectedWord
+
+handleWordClick = (word) =>{
+  console.log('here')
   WordService.getWordData(word)
   .then(res=>{
-      console.log(res)
+    this.setState({
+      data : res
+    })
   })
 
 
 }
-
-
 
 handleWordSubmit = (e) =>{
 e.preventDefault()
@@ -52,38 +55,19 @@ WordService.getRhymes(word)
   })
 })
 
-// WordService.getSynonyms(word)
-// .then(res=>{
-//   console.log(res)
-// })
+
 // WordService.getAlliterations(word)
 // .then(res=>{
 //   console.log(res)
 // })
 
-// WordService.getSimPhrases(word)
-// .then(res=>{
-//   console.log(res)
-// })
+
 
 }
 
-renderList = () =>{
-  if(this.state.results){
 
-  
 
-  const list = this.state.results.map((item , index)=>{
-    return <li key={index}>{item.word}</li>
 
-  })
-return (
-<ul className = 'result-List'>{list}</ul>
-)
-  
-
-  }
-}
 
 
   render(){
@@ -95,41 +79,23 @@ return (
     <div className = 'App'>
   {/* <UserContext.Provider value ={{word}}> */}
   <main className='App'>
-    <Sidebar width={120} height={"100vh"}>
+    <Sidebar width={150} height={"100vh"}>
     <WordForm className='App__word_form'
       handleChange = {this.handleChange}
       handleWordSubmit={this.handleWordSubmit}
       />
-          <button>Ryhmes</button>
-          <button>Thesaurus</button>
-          <button>Alliterations</button>
-          <button>Homophones</button>
-          <button>Nav Item</button>
         </Sidebar>
+       <Sidebar width={150} height={"100vh"}>
+       <WordList results = {this.state.results}
+        handleWordClick={this.handleWordClick}
+       />
+</Sidebar>
+
      
-<Sidebar width={120} height={"100vh"}>
-        {this.state.results && this.renderList()}
 
-</Sidebar>
-<Sidebar width={120} height={"100vh"}>
-     {this.state.selectedWord && <h1>placeholder</h1>}
-
-  </Sidebar>
+     
 
 
-
-
-{/* 
- 
-<Sidebar width={120} height={"100vh"}>
-        {this.state.results && this.renderList()}
-
-</Sidebar>
-<Sidebar width={120} height={"100vh"}>
-     {this.state.selectedWord && <h1>placeholder</h1>}
-
-  </Sidebar>
-   */}
 
 
 

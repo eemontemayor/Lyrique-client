@@ -1,18 +1,20 @@
 import React from 'react'
+import WordService from '../../services/word-service'
 
 
-export default function WordItem(props){
-//definition
-//syllables
-//thesaurus
-//pronunciation
+export default class WordItem extends React.Component{
+ 
 
-
-
-    return (
-
-<>word item placeholder</>
-
-
-    )
+   
+      render(){
+        const word = this.props.word
+          return (
+              <div><button type='click' onClick ={this.props.handleWordClick(word)}>
+      {word}
+      </button>
+      </div>
+  )
 }
+    
+  
+  }

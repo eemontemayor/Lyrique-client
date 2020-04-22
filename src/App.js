@@ -31,12 +31,14 @@ handleChange =(e)=>{
 
 
 handleWordClick = (word) =>{
-  console.log('here')
+  console.log(word)
   WordService.getWordData(word)
   .then(res=>{
-    this.setState({
-      data : res
-    })
+    console.log('res', res)
+
+    // this.setState({
+    //   data : res
+    // })
   })
 
 

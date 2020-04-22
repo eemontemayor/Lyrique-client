@@ -9,9 +9,9 @@ export default class WordItem extends React.Component{
       render(){
         const word = this.props.word
           return (
-              <div><button type='click' onClick ={this.props.handleWordClick(word)}>
+              <div>
       {word}
-      </button>
+      
       </div>
   )
 }

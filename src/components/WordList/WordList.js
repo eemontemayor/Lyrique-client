@@ -6,16 +6,16 @@ export default function WordList(props){
 
     if(props.results){
   
-    
   
      list = props.results.map((item , index)=>{
-      return <li key={index}><WordItem word = {item.word} handleWordClick = {props.handleWordClick}>
-
-     
-          
+        console.log('item', item)
+        let word = item.word;
+        console.log('word', typeof word)
+      return <li key={index}><button onClick ={()=>props.handleWordClick(word)}>
           {item.word}
-      
-      </WordItem>
+
+          </button>
+
           </li>
   
     })

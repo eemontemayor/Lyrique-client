@@ -2,12 +2,12 @@ import React from 'react'
 
 export class WordForm extends React.Component{
   renderButtons = () =>{
-    const arr = ['rhymes', 'synonyms', 'alliterations','homophones']
+    const arr = ['rhymes', 'synonyms', 'alliterations','homophones','definition']
   
-    return arr.map(i=>{
-      return <button key ={i} type ='click' onClick = {this.props.handleChangeView}>
-        {i}
-      </button>
+    return arr.map((i,index)=>{
+      return (<li key={index}><button  name={i} value= {i} type ='radio' onClick = {this.props.handleChangeView}/>
+    <label htmlFor={i}>{i}</label></li>)
+      
   
     })
   
@@ -23,10 +23,13 @@ export class WordForm extends React.Component{
             <input 
             name='word'
               type="text"
-          
+              required
               onChange={this.props.handleChange} />
           </label>
+          <ul>
+
           {this.renderButtons()}
+          </ul>
           <button type ='submit'>Search</button>
         </div>
       

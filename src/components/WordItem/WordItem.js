@@ -1,17 +1,17 @@
 import React from 'react'
 import WordService from '../../services/word-service'
-
+import './WordItem.css'
 
 export default class WordItem extends React.Component{
  
 
    
       render(){
-        const word = this.props.word
+      console.log('this.props', this.props)
           return (
-              <div>
-      {word}
-      
+              <div className = 'word-data-box'>
+   
+      {this.props.word}
       </div>
   )
 }

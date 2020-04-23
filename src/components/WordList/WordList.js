@@ -1,6 +1,6 @@
 import React from 'react'
 import WordItem from '../WordItem/WordItem'
-
+import './WordList.css'
 export default function WordList(props){
     let list
 
@@ -8,9 +8,9 @@ export default function WordList(props){
   
   
      list = props.results.map((item , index)=>{
-        console.log('item', item)
+     
         let word = item.word;
-        console.log('word', typeof word)
+    
       return <li key={index}><button onClick ={()=>props.handleWordClick(word)}>
           {item.word}
 
@@ -21,7 +21,7 @@ export default function WordList(props){
     })
 }
   return (
-  <ul className = 'result-List'>{list}</ul>
+  <ul className = 'result_list'>{list}</ul>
   )
     
   

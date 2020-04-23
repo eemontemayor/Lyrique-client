@@ -9,8 +9,8 @@ import './App.css'
 class App extends React.Component {
 state = {
   results:[],
-  searchWord:'',
   word:'',
+  data:[]
 
 }
 handleChange =(e)=>{
@@ -34,11 +34,17 @@ handleWordClick = (word) =>{
   console.log(word)
   WordService.getWordData(word)
   .then(res=>{
-    console.log('res', res)
+    for( let key in res){
+      if(res.hasOwnProperty(key)){
+        console.log(res[key])
+            this.setState({
+      [key] : res[key]
+    })
 
-    // this.setState({
-    //   data : res
-    // })
+
+      }
+    }
+
   })
 
 
@@ -75,24 +81,22 @@ WordService.getRhymes(word)
   render(){
 
    
-
+console.log('this.state', this.state)
   return (
 
     <div className = 'App'>
   {/* <UserContext.Provider value ={{word}}> */}
   <main className='App'>
-    <Sidebar width={150} height={"100vh"}>
+    <Sidebar width={300} height={"100vh"}>
     <WordForm className='App__word_form'
       handleChange = {this.handleChange}
       handleWordSubmit={this.handleWordSubmit}
       />
-        </Sidebar>
-       <Sidebar width={150} height={"100vh"}>
-       <WordList results = {this.state.results}
+        <WordList results = {this.state.results}
         handleWordClick={this.handleWordClick}
        />
-</Sidebar>
-
+        </Sidebar>
+  {this.state.word && <WordItem word = {this.state.data}/>}
      
 
      

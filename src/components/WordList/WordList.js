@@ -11,10 +11,13 @@ export default function WordList(props){
      
         let word = item.word;
     
-      return <li key={index}><button onClick ={()=>props.handleWordClick(word)}>
+      return <li key={index}>
+        {/* <button */}
+      {/* //  onClick ={()=>props.handleWordClick(word)} */}
+      {/* > */}
           {item.word}
 
-          </button>
+          {/* </button> */}
 
           </li>
   

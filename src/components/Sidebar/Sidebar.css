@@ -1,6 +1,8 @@
 .side-bar{
-    transition: 1s ease
-
+    transition: 1s ease;
+    z-index:3;
+    position:absolute;
+    background-color: white;
 }
 
 .toggle-menu {

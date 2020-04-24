@@ -3,15 +3,36 @@ import WordService from '../../services/word-service'
 import './WordItem.css'
 
 export default class WordItem extends React.Component{
- 
+  state={
+    definitions:''
+  }
 
+
+
+    componentDidMount(){
+
+      WordService.getWordData(this.props.word)
+      .then(res=>{
+        for( let key in res){
+          if(res.hasOwnProperty(key)){
+         
+                this.setState({
+          [key] : res[key]
+        })
+    
+    
+          }
+        }
+    
+      })
+    }
    
       render(){
-      console.log('this.props', this.props)
+
+
           return (
               <div className = 'word-data-box'>
-   
-      {this.props.word}
+ 
       </div>
   )
 }

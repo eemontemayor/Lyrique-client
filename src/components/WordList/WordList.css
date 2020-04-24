@@ -1,7 +1,17 @@
 .result_list{
     list-style: none;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    height:auto;
+    width: 100%;
+    background-color: aliceblue;
+    color:black;
     
 }
 
+.result_word{
+    margin:2px;
+    flex: 1 0 25%;
+    color: #171e42;
+  padding: 10px;
+}

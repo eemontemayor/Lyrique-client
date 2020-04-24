@@ -21,9 +21,6 @@ handleChange =(e)=>{
   this.setState({
     [e.target.name]:e.target.value
 
-  },()=>{
-
-    console.log(this.state)
   }
   )
 
@@ -58,30 +55,21 @@ e.preventDefault()
 let word = this.state.word
 
 
-WordService.getWordData(word)
-.then(res=>{
-  console.log(res)
-  // for( let key in res){
-  //   if(res.hasOwnProperty(key)){
-  //     console.log(key)
-  //         this.setState({
-  //   [key]:res[key]
-  // })
+// WordService.getWordData(word)
+// .then(res=>{
+//   console.log(res)
 
-
-  //   }
-  // }
-this.setState({
-  // definitions:res.definitions.definition,
-  // partOfSpeech:res.definitions.partOfSpeech,
-count:res.syllables.count,
-  syllables:res.syllables.list,
-  synonyms:res.synonyms,
-  results:res.rhymes.all
-},()=>{
-  console.log(this.state)
-})
-})
+// this.setState({
+//   definitions:res.definitions.definition,
+//   partOfSpeech:res.definitions.partOfSpeech,
+// count:res.syllables.count,
+//   syllables:res.syllables.list,
+//   synonyms:res.synonyms,
+//   results:res.rhymes.all
+// },()=>{
+//   console.log(this.state)
+// })
+// })
 
   WordService.getRhymes(word)
 .then(res=>{
@@ -106,7 +94,7 @@ count:res.syllables.count,
 
   render(){
 
-
+    const smallRhymes = this.state.rhymes[0]
 
   return (
 
@@ -147,16 +135,16 @@ count:res.syllables.count,
       <div className="main-header__heading">Hello User</div>
  
         {this.state.word}
-        {this.state.syllables}
+        {/* {this.state.syllables}
         {this.state.partOfSpeech}
-        {this.state.definitions}
+        {this.state.definitions} */}
       <div className="main-header__updates">Recent Items</div>
     </div>
 
     <div className="main-overview">
       <div className="overviewcard">
         <div className="overviewcard__icon">Rhymes</div>
-           {/* <WordList results = {this.state.results}/> */}
+           <WordList results = {this.state.rhymes}/>
         <div className="overviewcard__info">Card</div>
       </div>
       <div className="overviewcard">
@@ -176,16 +164,25 @@ count:res.syllables.count,
     </div>
 
     <div className="main-cards">
-      <div className="card">1-4 syllables 
-      {/* <WordList handleWordClick = {this.handleWordClick}results = {this.state.results}/> */}
+      <div className="card">1-2 syll
+      <WordList 
+      // handleWordClick = {this.handleWordClick}
+      results = {smallRhymes}
+      />
 
       </div>
-      <div className="card">4-8
-      {/* <WordList results = {this.state.results}/> */}
+      <div className="card">3-4 syll
+      <WordList 
+      // handleWordClick = {this.handleWordClick}
+      results = {this.state.rhymes[1]}
+      />
       </div>
 
       <div className="card">8+
-      {/* <WordList results = {this.state.results}/> */}
+      <WordList 
+      // handleWordClick = {this.handleWordClick}
+      results = {this.state.rhymes[2]}
+      />
 
       </div>
     </div>

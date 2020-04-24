@@ -11,7 +11,7 @@ export default function WordList(props){
      
         let word = item.word;
     
-      return <li key={index}>
+      return <li className = 'result_word' key={index}>
         {/* <button */}
       {/* //  onClick ={()=>props.handleWordClick(word)} */}
       {/* > */}

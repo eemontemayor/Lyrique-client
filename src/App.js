@@ -52,31 +52,17 @@ handleWordClick = (word) =>{
 handleWordSubmit = (e) =>{
 e.preventDefault()
 
-let word = this.state.word
+this.setState({
+  word:this.state.searchWord
 
+})
 
-// WordService.getWordData(word)
-// .then(res=>{
-//   console.log(res)
-
-// this.setState({
-//   definitions:res.definitions.definition,
-//   partOfSpeech:res.definitions.partOfSpeech,
-// count:res.syllables.count,
-//   syllables:res.syllables.list,
-//   synonyms:res.synonyms,
-//   results:res.rhymes.all
-// },()=>{
-//   console.log(this.state)
-// })
-// })
-
-  WordService.getRhymes(word)
+  WordService.getRhymes(this.state.searchWord)
 .then(res=>{
   this.setState({
     rhymes:res
 
-  },()=>{console.log(this.state.rhymes)})
+  })
 })
 
 
@@ -94,7 +80,6 @@ let word = this.state.word
 
   render(){
 
-    const smallRhymes = this.state.rhymes[0]
 
   return (
 
@@ -133,8 +118,12 @@ let word = this.state.word
     <div className="main-header">
         
       <div className="main-header__heading">Hello User</div>
- 
-        {this.state.word}
+        {this.state.word && <WordItem
+          word={this.state.word}
+         
+
+        />}
+      
         {/* {this.state.syllables}
         {this.state.partOfSpeech}
         {this.state.definitions} */}
@@ -167,7 +156,7 @@ let word = this.state.word
       <div className="card">1-2 syll
       <WordList 
       // handleWordClick = {this.handleWordClick}
-      results = {smallRhymes}
+      results = {this.state.rhymes[0]}
       />
 
       </div>

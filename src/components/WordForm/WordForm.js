@@ -11,7 +11,7 @@ export class WordForm extends React.Component{
           <label>
             word
             <input 
-            name='word'
+            name='searchWord'
               type="text"
               required
               onChange={this.props.handleChange} />

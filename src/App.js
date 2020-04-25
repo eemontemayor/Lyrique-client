@@ -120,13 +120,8 @@ this.setState({
       <div className="main-header__heading">Hello User</div>
         {this.state.word && <WordItem
           word={this.state.word}
-         
-
         />}
       
-        {/* {this.state.syllables}
-        {this.state.partOfSpeech}
-        {this.state.definitions} */}
       <div className="main-header__updates">Recent Items</div>
     </div>
 
@@ -138,16 +133,17 @@ this.setState({
       </div>
       <div className="overviewcard">
         <div className="overviewcard__icon">Synonyms</div>
-            {/* <WordList results = {this.state.synonyms}/> */}
+     
         <div className="overviewcard__info">Card</div>
       </div>
       <div className="overviewcard">
         <div className="overviewcard__icon">Rhymes2</div>
-        {/* <WordList results = {this.state.rhymes}/> */}
+
         <div className="overviewcard__info">Card</div>
       </div>
       <div className="overviewcard">
         <div className="overviewcard__icon">Overview</div>
+        
         <div className="overviewcard__info">Card</div>
       </div>
     </div>

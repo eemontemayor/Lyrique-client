@@ -9,10 +9,11 @@ import './App.css'
 class App extends React.Component {
 state = {
   synonyms:[],
-  definitions:[],
+  defs:[],
+  
   syllables:[],
   word:'',
-  rhymes:[]
+  results:[[],[],[]]
 
 }
 handleChange =(e)=>{
@@ -29,25 +30,6 @@ handleChange =(e)=>{
 
 
 
-handleWordClick = (word) =>{
-
-  WordService.getWordData(word)
-  .then(res=>{
-    for( let key in res){
-      if(res.hasOwnProperty(key)){
-        console.log(res[key])
-            this.setState({
-      [key] : res[key]
-    })
-
-
-      }
-    }
-
-  })
-
-
-}
 
 handleWordSubmit = (e) =>{
 e.preventDefault()
@@ -57,10 +39,32 @@ this.setState({
 
 })
 
+
+
+
+
+
+  WordService.getWordData(this.state.searchWord)
+  .then((res) => {
+
+      
+
+    const {defs,word} = res[0]
+
+    const partOfSpeech = res[0].tags[0]
+
+    const pronunciation = res[0].tags[1].slice(4).replace(/\d+/g,'')
+    console.log('partOfSpeech', partOfSpeech)
+    this.setState({
+      defs, word, partOfSpeech, pronunciation
+    });
+  
+  });
+  
   WordService.getRhymes(this.state.searchWord)
 .then(res=>{
   this.setState({
-    rhymes:res
+    results:res
 
   })
 })
@@ -69,17 +73,83 @@ this.setState({
 
 
 
+
+}
+handleGetAllits = () =>{
+
+  this.setState({
+    results:[]
+  },()=>{
+
+    WordService.getAlliterations(this.state.word)
+    .then(res=>{
+      this.setState({
+        results:res
+      }
+    )
+    })
+  })
+
 }
 
+handleGetSyns = () =>{
+  this.setState({
+    results:[]
+  },()=>{
 
-//TODO: USE CONTEXT
-        // CHANGE CLASS NAMES
-        //fix side bar toggle / either use customizable sidebar or use jquery
+  WordService.getSynonyms(this.state.word)
+  .then(res=>{
+    this.setState({
+      results:res
+    
+  })
 
+})
+})
+}
 
+handleGetRhymes = () =>{
+  this.setState({
+    results:[]
+  },()=>{
+  WordService.getRhymes(this.state.word)
+  .then(res=>{
+    this.setState({
+      results:res
+    
+  })
 
+})
+})
+}
+
+renderDefs =() =>{
+
+  const arr = this.state.defs
+if(arr.length){
+
+  const list = arr.map((item,index) => {
+
+    let def = item.slice(2)
+
+    return (
+      <li style={{fontSize:'12px'}} key={index}>
+        {def}
+      </li>
+    );
+  });
+  return list;
+
+}
+}
   render(){
+   
 
+    const {word,pronunciation} = this.state
+   
+   
+
+    
 
   return (
 
@@ -117,56 +187,62 @@ this.setState({
   <main className="main">
     <div className="main-header">
         
-      <div className="main-header__heading">Hello User</div>
-        {this.state.word && <WordItem
-          word={this.state.word}
-        />}
+  <div className="main-header__heading">{word}{pronunciation}</div>
+       
       
-      <div className="main-header__updates">Recent Items</div>
+  <div className="main-header__updates">{this.renderDefs()}</div>
     </div>
 
     <div className="main-overview">
+        <button onClick ={this.handleGetRhymes}>
       <div className="overviewcard">
+
         <div className="overviewcard__icon">Rhymes</div>
-           <WordList results = {this.state.rhymes}/>
+      
         <div className="overviewcard__info">Card</div>
       </div>
+        </button>
+       <button onClick={this.handleGetSyns}>
       <div className="overviewcard">
-        <div className="overviewcard__icon">Synonyms</div>
+          <div className="overviewcard__icon">Synonyms</div>
      
         <div className="overviewcard__info">Card</div>
       </div>
+         </button>
+        <button onClick={this.handleGetAllits}>
       <div className="overviewcard">
-        <div className="overviewcard__icon">Rhymes2</div>
+
+        <div className="overviewcard__icon">Alliterations</div>
 
         <div className="overviewcard__info">Card</div>
       </div>
-      <div className="overviewcard">
+        </button>
+      {/* <div className="overviewcard">
         <div className="overviewcard__icon">Overview</div>
-        
+
         <div className="overviewcard__info">Card</div>
-      </div>
+      </div> */}
     </div>
 
     <div className="main-cards">
-      <div className="card">1-2 syll
+      <div className="card">1 syllable
       <WordList 
-      // handleWordClick = {this.handleWordClick}
-      results = {this.state.rhymes[0]}
+      
+      results = {this.state.results[0]}
       />
 
       </div>
-      <div className="card">3-4 syll
+      <div className="card">2 syllables
       <WordList 
-      // handleWordClick = {this.handleWordClick}
-      results = {this.state.rhymes[1]}
+
+      results = {this.state.results[1]}
       />
       </div>
 
-      <div className="card">8+
+      <div className="card">3+ syllables
       <WordList 
-      // handleWordClick = {this.handleWordClick}
-      results = {this.state.rhymes[2]}
+
+      results = {this.state.results[2]}
       />
 
       </div>

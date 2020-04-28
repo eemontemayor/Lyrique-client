@@ -10,20 +10,14 @@ export default class WordItem extends React.Component {
       definitions: [],
       synonyms: [],
       syllables: [],
+      pronunciation:[]
     };
-    // this.componentDidMount = this.componentDidMount.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   componentDidMount() {
-    WordService.getWordData(this.props.word).then((res) => {
-      this.setState({
-        definitions: res.definitions,
-        count: res.syllables.count,
-        syllables: res.syllables.list,
-        synonyms: res.synonyms,
-        results: res.rhymes.all,
-      });
-    });
+
+   
   }
   renderDefinitions() {
     const arr = this.state.definitions;
@@ -39,9 +33,9 @@ export default class WordItem extends React.Component {
   }
   renderSynonyms() {
     const arr = this.state.synonyms;
-
+  
     const list = arr.map((i) => {
-      return <li>{i}</li>;
+    return <li>{i}</li>;
     });
     return list;
   }
@@ -52,18 +46,33 @@ export default class WordItem extends React.Component {
       return <div>{this.state.count > 1 ? syll.join(" - ") : syll}</div>;
     }
   }
+  renderPronunciation() {
+    const pronunciation = this.state.pronunciation
+
+    if (pronunciation.length) {
+    return <div>{pronunciation}</div>;
+    }
+  }
+
 
   render() {
     return (
+      <>
       <div className="word-data-box">
+      <div className = 'word-basic-data'>
+
         {this.props.word}
         {this.renderSyllables()}
-        <br />
-        {/* {this.renderSynonyms()} */}
-        <br />
-        <br />
-        {this.renderDefinitions()}
+        {this.renderPronunciation()}
       </div>
+     <div className = 'word-defs'>
+
+        {/* {this.renderSynonyms()} */}
+        
+        {this.renderDefinitions()}
+     </div>
+      </div>
+      </>
     );
   }
 }

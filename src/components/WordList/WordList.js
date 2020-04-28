@@ -10,12 +10,12 @@ export default function WordList(props) {
 
       return (
         <li className="result_word" key={index}>
-          {/* <button */}
-          {/* //  onClick ={()=>props.handleWordClick(word)} */}
-          {/* > */}
+          <button
+           onClick ={()=>props.handleClickWord(word)}
+          >
           {item.word}
 
-          {/* </button> */}
+          </button>
         </li>
       );
     });

@@ -28,10 +28,11 @@ class App extends React.Component {
       word: this.state.searchWord,
     });
 
-    WordService.getWordData(this.state.searchWord).then((res) => {
+    WordService.getWordData(this.state.searchWord)
+    .then((res) => {
       const { defs, word } = res[0];
 
-      const partOfSpeech = res[0].tags[0];
+     
 
       const pronunciation = res[0].tags[1].slice(4).replace(/\d+/g, "");
     
@@ -42,7 +43,8 @@ class App extends React.Component {
       });
     });
 
-    WordService.getRhymes(this.state.searchWord).then((res) => {
+    WordService.getRhymes(this.state.searchWord)
+    .then((res) => {
       this.setState({
         results: res,
       });
@@ -69,7 +71,7 @@ class App extends React.Component {
   };
 
 
-  
+
   handleGetSyns = () => {
     this.setState(
       {
@@ -119,6 +121,51 @@ class App extends React.Component {
       return list;
     }
   };
+
+  handleClickWord = (word) =>{
+
+   
+
+    this.setState(
+      {
+        results: [],
+      },
+      () => {
+
+        WordService.getWordData(word)
+        .then((res) => {
+          const { defs, word } = res[0];
+    
+      
+    
+          const pronunciation = res[0].tags[1].slice(4).replace(/\d+/g, "");
+        
+          this.setState({
+            defs,
+            word,
+            pronunciation,
+          });
+        });
+    
+        WordService.getRhymes(word)
+        .then((res) => {
+          this.setState({
+            results: res,
+          });
+        });
+
+
+
+      })
+
+
+  }
+
+
+
+
+
+
   render() {
     const { word, pronunciation } = this.state;
 
@@ -195,16 +242,16 @@ class App extends React.Component {
           <div className="main-cards">
             <div className="card">
               1 syllable
-              <WordList results={this.state.results[0]} />
+              <WordList results={this.state.results[0]} handleClickWord={this.handleClickWord} />
             </div>
             <div className="card">
               2 syllables
-              <WordList results={this.state.results[1]} />
+              <WordList results={this.state.results[1]}  handleClickWord={this.handleClickWord}/>
             </div>
 
             <div className="card">
               3+ syllables
-              <WordList results={this.state.results[2]} />
+              <WordList results={this.state.results[2]}  handleClickWord={this.handleClickWord}/>
             </div>
           </div>
         </main>

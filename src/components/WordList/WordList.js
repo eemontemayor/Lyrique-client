@@ -2,10 +2,12 @@ import React from "react";
 import WordItem from "../WordItem/WordItem";
 import "./WordList.css";
 export default function WordList(props) {
-  let list;
+  let resList = props.results || []
 
-  if (props.results) {
-    list = props.results.map((item, index) => {
+let list;
+
+  if (resList.length) {
+    list = resList.map((item, index) => {
       let word = item.word;
 
       return (

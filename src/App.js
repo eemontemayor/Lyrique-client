@@ -103,7 +103,7 @@ class App extends React.Component {
   };
 
   renderDefs = () => {
-    const arr = this.state.defs;
+    const arr = this.state.defs || [];
     if (arr.length) {
       const list = arr.map((item, index) => {
         let regEx = /\t/;
@@ -113,7 +113,7 @@ class App extends React.Component {
         let def = item.slice(item.search(regEx));
 
         return (
-          <li style={{ fontSize: "12px" }} key={index}>
+          <li style={{ fontSize: "14px" }} key={index}>
             {type}:{def}
           </li>
         );

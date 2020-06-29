@@ -4,7 +4,7 @@
     flex-wrap: wrap;
     height:auto;
     width: 100%;
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
     color:black;
     
 }
@@ -14,4 +14,13 @@
     flex: 1 0 15%;
     color: #171e42;
   padding: 10px;
+}
+
+.result_word button:hover{
+  cursor:pointer;
+}
+
+.result_word button{
+  border: none;
+
 }

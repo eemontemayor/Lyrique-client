@@ -215,21 +215,21 @@ class App extends React.Component {
               <div className="overviewcard">
                 <div className="overviewcard__icon">Rhymes</div>
 
-                <div className="overviewcard__info">Card</div>
+                <div className="overviewcard__info">similair sound</div>
               </div>
             </button>
             <button onClick={this.handleGetSyns}>
               <div className="overviewcard">
                 <div className="overviewcard__icon">Synonyms</div>
 
-                <div className="overviewcard__info">Card</div>
+                <div className="overviewcard__info">similair meaning</div>
               </div>
             </button>
             <button onClick={this.handleGetAllits}>
               <div className="overviewcard">
                 <div className="overviewcard__icon">Alliterations</div>
 
-                <div className="overviewcard__info">Card</div>
+                <div className="overviewcard__info">same inital sound/letter</div>
               </div>
             </button>
             {/* <div className="overviewcard">

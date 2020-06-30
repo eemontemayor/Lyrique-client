@@ -26,6 +26,7 @@ class App extends React.Component {
 
     this.setState({
       word: this.state.searchWord,
+      results:[[],[],[]]
     });
 
     WordService.getWordData(this.state.searchWord)
@@ -58,7 +59,7 @@ class App extends React.Component {
   handleGetAllits = () => {
     this.setState(
       {
-        results: [],
+        results: [[]],
       },
       () => {
         WordService.getAlliterations(this.state.word).then((res) => {

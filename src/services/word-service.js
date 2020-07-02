@@ -4,6 +4,40 @@ import config from '../config';
 
 
  const WordService = {
+
+  getSearchResults(word='',type='rhymes'){
+
+  
+    return fetch(`${config.API_ENDPOINT}/word/${type}/${word}`,{
+      method:'GET',
+      headers:{
+        'content-type':'application/json',
+        // 'authorization':`bearer ${TokenService.getAuthToken()}`,
+      },
+
+
+
+    })
+    .then((res) => {
+      if (!res.ok)
+        return res.json().then(e => Promise.reject(e))
+      return res.json()
+    })
+    .catch(error => {
+      console.error({error})
+    })
+
+  },
+
+
+
+
+
+
+
+
+
+
     getRhymes(word){
 
 

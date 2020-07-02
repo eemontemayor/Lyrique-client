@@ -8,12 +8,13 @@ import WordItem from "./components/WordItem/WordItem";
 import "./App.css";
 class App extends React.Component {
   state = {
-    synonyms: [],
+
     defs: [],
 
     syllables: [],
     word: "",
-    resultType: "",
+    searchWord:"",
+    resultType: "rhymes",
     results: [[], [], []],
   };
   handleChange = (e) => {
@@ -25,10 +26,7 @@ class App extends React.Component {
   handleWordSubmit = (e) => {
     e.preventDefault();
 
-    this.setState({
-      word: this.state.searchWord,
-      results: [[], [], []],
-    });
+ 
 
     WordService.getWordData(this.state.searchWord).then((res) => {
       const { defs, word } = res[0];
@@ -39,19 +37,30 @@ class App extends React.Component {
         defs,
         word,
         pronunciation,
+      },()=>{
+
+        console.log('this.state.resultType', this.state.resultType)
+
+        WordService.getSearchResults(this.state.word,this.state.resultType).then((res)=>{
+          this.setState({
+            results:res
+          })
+
+        })
+
+
+
+ 
+
       });
     });
 
-    WordService.getRhymes(this.state.searchWord).then((res) => {
-      this.setState({
-        results: res,
-      });
-    });
+
   };
 
   handleClickType = (type) => {
-    const resType = type || "rhymes";
-    console.log("type", resType);
+    const resType = type 
+
     this.setState(
       {
         resultType: resType,
@@ -60,35 +69,8 @@ class App extends React.Component {
     );
   };
 
-  handleGetSyns = () => {
-    this.setState(
-      {
-        results: [[], [], []],
-      },
-      () => {
-        WordService.getSynonyms(this.state.word).then((res) => {
-          this.setState({
-            results: res,
-          });
-        });
-      }
-    );
-  };
 
-  handleGetRhymes = () => {
-    this.setState(
-      {
-        results: [[], [], []],
-      },
-      () => {
-        WordService.getRhymes(this.state.word).then((res) => {
-          this.setState({
-            results: res,
-          });
-        });
-      }
-    );
-  };
+ 
 
   renderDefs = () => {
     const arr = this.state.defs || [];
@@ -117,12 +99,7 @@ class App extends React.Component {
   };
 
   handleClickWord = (word) => {
-    this.setState(
-      {
-        word: word,
-        results: [[], [], []],
-      },
-      () => {
+ 
         WordService.getWordData(word).then((res) => {
           const { defs, word } = res[0];
 
@@ -132,37 +109,13 @@ class App extends React.Component {
             defs,
             word,
             pronunciation,
+        
           });
         });
 
-        if (this.state.resultType === 'rhymes') {
-          console.log('this.state.resultType', this.state.resultType)
-          WordService.getRhymes(word)
-            .then((res) => {
-              this.setState({
-                results: res,
-              });
-            });
-        } else if (this.state.resultType === 'synonyms') {
-          console.log('this.state.resultType', this.state.resultType)
 
-          WordService.getSynonyms(this.state.word).then((res) => {
-            this.setState({
-              results: res,
-            });
-          });
-        } else if (this.state.resultType === 'alliterations') {
-          console.log('this.state.resultType', this.state.resultType)
-
-          WordService.getAlliterations(this.state.word).then((res) => {
-            this.setState({
-              results: res,
-            });
-
-          })
-        }
-      }
-    );
+      
+    
   };
 
   render() {

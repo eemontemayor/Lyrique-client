@@ -219,7 +219,7 @@ class App extends React.Component {
           <div className="footer__copyright"> & copy; 2018 MTH </div>{" "}
           <div className="footer__signature">
             {" "}
-            Made with love by pure genius{" "}
+           
           </div>{" "}
         </footer>{" "}
       </div>

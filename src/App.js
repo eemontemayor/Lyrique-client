@@ -8,12 +8,12 @@ import WordItem from "./components/WordItem/WordItem";
 import "./App.css";
 class App extends React.Component {
   state = {
-
     defs: [],
-
-    syllables: [],
     word: "",
-    searchWord:"",
+    pronunciation: "",
+    syllables: [],
+
+    searchWord: "",
     resultType: "rhymes",
     results: [[], [], []],
   };
@@ -26,51 +26,40 @@ class App extends React.Component {
   handleWordSubmit = (e) => {
     e.preventDefault();
 
- 
-
     WordService.getWordData(this.state.searchWord).then((res) => {
       const { defs, word } = res[0];
 
       const pronunciation = res[0].tags[1].slice(4).replace(/\d+/g, "");
 
-      this.setState({
-        defs,
-        word,
-        pronunciation,
-      },()=>{
+      this.setState(
+        {
+          defs,
+          word,
+          pronunciation,
+        },
+        () => {
+          console.log("this.state.resultType", this.state.resultType);
 
-        console.log('this.state.resultType', this.state.resultType)
-
-        WordService.getSearchResults(this.state.word,this.state.resultType).then((res)=>{
-          this.setState({
-            results:res
-          })
-
-        })
-
-
-
- 
-
-      });
+          WordService.getSearchResults(
+            this.state.word,
+            this.state.resultType
+          ).then((res) => {
+            this.setState({
+              results: res,
+            });
+          });
+        }
+      );
     });
-
-
   };
 
   handleClickType = (type) => {
-    const resType = type 
+    const resType = type;
 
-    this.setState(
-      {
-        resultType: resType,
-      }
-  
-    );
+    this.setState({
+      resultType: resType,
+    });
   };
-
-
- 
 
   renderDefs = () => {
     const arr = this.state.defs || [];
@@ -99,23 +88,17 @@ class App extends React.Component {
   };
 
   handleClickWord = (word) => {
- 
-        WordService.getWordData(word).then((res) => {
-          const { defs, word } = res[0];
+    WordService.getWordData(word).then((res) => {
+      const { defs, word } = res[0];
 
-          const pronunciation = res[0].tags[1].slice(4).replace(/\d+/g, "");
+      const pronunciation = res[0].tags[1].slice(4).replace(/\d+/g, "");
 
-          this.setState({
-            defs,
-            word,
-            pronunciation,
-        
-          });
-        });
-
-
-      
-    
+      this.setState({
+        defs,
+        word,
+        pronunciation,
+      });
+    });
   };
 
   render() {
@@ -158,13 +141,13 @@ class App extends React.Component {
             <div className="main-header__updates"> {this.renderDefs()} </div>{" "}
           </div>
           <div className="main-overview">
-            <button onClick={()=>this.handleClickType('rhymes')}>
+            <button onClick={() => this.handleClickType("rhymes")}>
               <div className="overviewcard">
                 <div className="overviewcard__icon"> Rhymes </div>
                 <div className="overviewcard__info"> similair sound </div>{" "}
               </div>{" "}
             </button>{" "}
-            <button onClick={()=>this.handleClickType('synonyms')}>
+            <button onClick={() => this.handleClickType("synonyms")}>
               <div className="overviewcard">
                 <div className="overviewcard__icon"> Synonyms </div>
                 <div className="overviewcard__info">
@@ -173,7 +156,7 @@ class App extends React.Component {
                 </div>{" "}
               </div>{" "}
             </button>{" "}
-            <button onClick={()=>this.handleClickType('alliterations')}>
+            <button onClick={() => this.handleClickType("alliterations")}>
               <div className="overviewcard">
                 <div className="overviewcard__icon"> Alliterations </div>
                 <div className="overviewcard__info">
@@ -217,10 +200,7 @@ class App extends React.Component {
         </Sidebar>{" "}
         <footer className="footer">
           <div className="footer__copyright"> & copy; 2018 MTH </div>{" "}
-          <div className="footer__signature">
-            {" "}
-           
-          </div>{" "}
+          <div className="footer__signature"> </div>{" "}
         </footer>{" "}
       </div>
     );
